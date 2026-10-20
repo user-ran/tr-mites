@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catálogo interactivo de trámites · Registro Agrario Nacional</title>
+  <meta name="description" content="Consulta los trámites del Registro Agrario Nacional: requisitos, costos, tiempos de respuesta y pasos. Buscador inteligente, filtros por categoría y listas de requisitos interactivas.">
+  <meta name="theme-color" content="#611232">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="assets/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="icon" href="assets/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Vista previa al compartir -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Catálogo interactivo de trámites · Registro Agrario Nacional">
+  <meta property="og:description" content="Requisitos, costos y pasos de los trámites del RAN, con buscador inteligente y listas interactivas.">
+  <meta property="og:image" content="assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip" href="#catalogo">Saltar al catálogo</a>
+
+  <!-- Barra superior -->
+  <header class="topbar">
+    <div class="wrap topbar__in">
+      <div class="brand">
+        <img class="brand__logo" src="assets/logo-ran-horizontal.png" alt="Registro Agrario Nacional" width="160" height="52">
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">
+        <span class="sr">Menú</span>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <nav class="nav" id="nav" aria-label="Principal">
+        <a href="#mas-pedidos">Trámites más pedidos</a>
+        <a href="#categorias" data-goto="categorias">Categorías</a>
+        <a href="#acerca">Acerca de</a>
+        <a href="https://www.gob.mx/ran" target="_blank" rel="noopener">gob.mx/ran<span class="sr"> (se abre en otra pestaña)</span></a>
+        <button class="nav__search" id="navSearch" aria-label="Ir al buscador">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero + buscador -->
+    <section class="hero" aria-labelledby="hTitle">
+      <img class="hero__art" src="assets/hero-parcelas.svg" alt="" width="900" height="520">
+      <div class="wrap hero__in">
+        <p class="hero__kicker">Registro Agrario Nacional</p>
+        <h1 id="hTitle">Catálogo interactivo <br>de trámites agrarios</h1>
+
+        <form class="search" id="searchForm" role="search" autocomplete="off">
+          <label class="sr" for="q">Buscar trámite, requisito o homoclave</label>
+          <div class="search__box">
+            <input id="q" name="q" type="search" placeholder="Busca un trámite, requisito o homoclave" role="combobox" aria-expanded="false" aria-controls="sugg" aria-autocomplete="list" spellcheck="false" enterkeyhint="search">
+            <button class="search__btn" type="submit" aria-label="Buscar">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            </button>
+          </div>
+          <ul class="sugg" id="sugg" role="listbox" aria-label="Sugerencias" hidden></ul>
+        </form>
+
+        <p class="notice">Información tomada de las fichas oficiales de <strong>gob.mx</strong> (19 de octubre de 2026), actualizada con los acuerdos de simplificación publicados en el DOF el <strong>12/11/2025</strong> y el <strong>19/02/2026</strong>. <strong>Verifica siempre en la ficha oficial</strong> antes de iniciar tu trámite.</p>
+      </div>
+    </section>
+
+    <!-- Accesos rápidos -->
+    <section class="wrap quickgrid" aria-label="Accesos rápidos">
+      <div class="tiles">
+        <button class="tile" id="tileAll" type="button">
+          <span class="tile__k">Consulta</span>
+          <span class="tile__t">Todos los trámites</span>
+          <span class="tile__n" id="nAll">41</span>
+          <span class="tile__go" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+        </button>
+        <button class="tile" id="tileCost" type="button">
+          <span class="tile__k">Consulta</span>
+          <span class="tile__t">Trámites con costo</span>
+          <span class="tile__n" id="nCost">0</span>
+          <span class="tile__go" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+        </button>
+      </div>
+
+      <div class="infocards">
+        <article class="icard">
+          <svg class="icard__ico" width="62" height="62" viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="12" y="6" width="40" height="52" rx="6" fill="#f4e8d0"/><path d="M20 20h24M20 29h24M20 38h15" stroke="#611232" stroke-width="3.2" stroke-linecap="round"/><circle cx="44" cy="46" r="8" fill="#a57f2c"/><path d="m40.5 46 2.5 2.5 4.5-5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div>
+            <p class="icard__k">Formato base</p>
+            <h2 class="icard__t">Solicitud FF-RAN-01</h2>
+            <a class="btn btn--wine" href="https://www.gob.mx/ran/documentos/tramites-formatos-descargables" target="_blank" rel="noopener">Ver formato <span aria-hidden="true">›</span><span class="sr"> (se abre en otra pestaña)</span></a>
+          </div>
+        </article>
+        <article class="icard">
+          <svg class="icard__ico" width="62" height="62" viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="6" y="14" width="52" height="36" rx="6" fill="#f4e8d0"/><path d="M6 26h52" stroke="#611232" stroke-width="3"/><circle cx="14" cy="20" r="1.8" fill="#611232"/><circle cx="21" cy="20" r="1.8" fill="#611232"/><path d="M16 36h22M16 43h12" stroke="#a0174f" stroke-width="3" stroke-linecap="round"/></svg>
+          <div>
+            <p class="icard__k">Fuente oficial</p>
+            <h2 class="icard__t">Sitio del RAN en gob.mx</h2>
+            <a class="btn btn--wine" href="https://www.gob.mx/ran" target="_blank" rel="noopener">gob.mx/ran <span aria-hidden="true">›</span><span class="sr"> (se abre en otra pestaña)</span></a>
+          </div>
+        </article>
+
+        <section class="relev" aria-labelledby="relevT">
+          <h2 id="relevT">Documentos que más se solicitan</h2>
+          <ul class="relev__list" id="relevList"></ul>
+        </section>
+      </div>
+    </section>
+
+    <!-- Trámites más pedidos -->
+    <section class="wrap top10" id="mas-pedidos" aria-labelledby="topT">
+      <div class="top10__box">
+        <div class="top10__head">
+          <h2 id="topT">Trámites más pedidos</h2>
+          <p>Los 10 trámites que más consulta la gente. Toca uno para ver su ficha.</p>
+        </div>
+        <ol class="top10__list" id="topList"></ol>
+      </div>
+    </section>
+
+    <!-- Catálogo -->
+    <section class="wrap catalog" id="catalogo" aria-labelledby="catT">
+      <div class="catalog__head">
+        <div>
+          <h2 id="catT">Catálogo de trámites</h2>
+          <p class="lead">Filtra por categoría, quién lo solicita o costo. Abre cualquier tarjeta para ver su ficha completa.</p>
+        </div>
+      </div>
+
+      <div class="filters" id="categorias">
+        <div class="chips" id="catChips" role="group" aria-label="Filtrar por categoría"></div>
+        <div class="selects">
+          <label class="sel"><span>Costo</span>
+            <select id="fCosto">
+              <option value="">Todos</option>
+              <option value="con">Con costo</option>
+              <option value="sin">Costo no indicado</option>
+            </select>
+          </label>
+          <label class="sel"><span>¿Quién lo solicita?</span>
+            <select id="fQuien">
+              <option value="">Cualquiera</option>
+              <option value="Interesado">Interesado</option>
+              <option value="Tercero con carta poder">Tercero con carta poder</option>
+              <option value="Representante legal">Representante legal</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </label>
+          <label class="sel"><span>Simplificación</span>
+            <select id="fSimp">
+              <option value="">Todos los trámites</option>
+              <option value="si">Trámites simplificados</option>
+              <option value="no">Sin cambios por los acuerdos</option>
+            </select>
+          </label>
+          <label class="sel"><span>Ordenar por</span>
+            <select id="fOrden">
+              <option value="rel">Relevancia / homoclave</option>
+              <option value="az">Nombre (A–Z)</option>
+              <option value="tiempo">Menor tiempo de respuesta</option>
+              <option value="req">Menos requisitos</option>
+            </select>
+          </label>
+          <button class="btn btn--ghost" id="clearBtn" type="button" hidden>Limpiar filtros</button>
+        </div>
+      </div>
+
+      <p class="count" id="count" role="status" aria-live="polite"></p>
+      <div class="grid" id="grid"></div>
+      <div class="empty" id="empty" hidden>
+        <svg width="72" height="72" viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle cx="28" cy="28" r="16" stroke="#9b1050" stroke-width="4"/><path d="m40 40 14 14" stroke="#9b1050" stroke-width="4" stroke-linecap="round"/><path d="M22 28h12" stroke="#9b1050" stroke-width="4" stroke-linecap="round"/></svg>
+        <h3>No encontramos trámites con esa búsqueda</h3>
+        <p id="didYou"></p>
+        <button class="btn btn--wine" id="emptyClear" type="button">Ver todos los trámites</button>
+      </div>
+    </section>
+
+    <section class="wrap about" id="acerca" aria-labelledby="aboutT">
+      <h2 id="aboutT">Acerca de este catálogo</h2>
+      <div class="about__grid">
+        <p>Este catálogo reúne en un solo lugar la información de las fichas de trámites del Registro Agrario Nacional publicadas en gob.mx: descripción, requisitos, pasos, costo, tiempo de respuesta y quién puede solicitarlos.</p>
+        <p>Es un sitio informativo. Los requisitos, costos y plazos pueden cambiar: la ficha oficial siempre prevalece, y cada trámite incluye el enlace a ella. Las marcas que haces en las listas de requisitos se guardan solo en tu navegador.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot__in">
+      <div>
+        <img class="foot__logo" src="assets/logo-ran-horizontal.png" alt="Registro Agrario Nacional" width="180" height="58">
+        <p>Catálogo interactivo de trámites · Datos de gob.mx al 19 de octubre de 2026 · Actualizado con DOF 12/11/2025 y 19/02/2026</p>
+      </div>
+      <a class="foot__a" href="https://www.gob.mx/ran" target="_blank" rel="noopener">Sitio oficial gob.mx/ran</a>
+    </div>
+  </footer>
+
+  <!-- Ficha del trámite -->
+  <dialog class="ficha" id="ficha" aria-labelledby="fTitle">
+    <div class="ficha__shell">
+      <header class="ficha__head">
+        <div class="ficha__headtxt">
+          <p class="ficha__meta"><span class="pill pill--gold" id="fId"></span><span class="ficha__cat" id="fCat"></span></p>
+          <h2 id="fTitle"></h2>
+          <p class="ficha__desc" id="fDesc"></p>
+          <div class="ficha__badges" id="fBadges" hidden></div>
+        </div>
+        <button class="ficha__close" id="fClose" type="button" aria-label="Cerrar ficha">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </header>
+
+      <div class="ficha__body">
+        <div class="ficha__main">
+          <div class="tabs" role="tablist" aria-label="Secciones de la ficha" id="tabs">
+            <button role="tab" id="tab-req" aria-controls="p-req" aria-selected="true">Requisitos</button>
+            <button role="tab" id="tab-pasos" aria-controls="p-pasos" aria-selected="false" tabindex="-1">Cómo realizarlo</button>
+            <button role="tab" id="tab-pago" aria-controls="p-pago" aria-selected="false" tabindex="-1">Costo y pago</button>
+            <button role="tab" id="tab-info" aria-controls="p-info" aria-selected="false" tabindex="-1">Más información</button>
+          </div>
+          <div class="panel" id="p-req" role="tabpanel" aria-labelledby="tab-req"></div>
+          <div class="panel" id="p-pasos" role="tabpanel" aria-labelledby="tab-pasos" hidden></div>
+          <div class="panel" id="p-pago" role="tabpanel" aria-labelledby="tab-pago" hidden></div>
+          <div class="panel" id="p-info" role="tabpanel" aria-labelledby="tab-info" hidden></div>
+          <section class="simp" id="simpSec" hidden aria-label="Información importante sobre la simplificación"></section>
+        </div>
+
+        <aside class="ficha__side" aria-label="Resumen del trámite">
+          <dl class="facts">
+            <div><dt>Costo del trámite</dt><dd id="sCosto"></dd></div>
+            <div><dt>Vigencia</dt><dd id="sVig"></dd></div>
+            <div><dt>Tiempo de respuesta</dt><dd id="sTiempo"></dd></div>
+            <div><dt>Modalidad</dt><dd id="sMod"></dd></div>
+          </dl>
+          <div class="side__btns">
+            <a class="btn btn--wine" id="sOficial" href="#" target="_blank" rel="noopener">Ver ficha oficial <span class="sr">(se abre en otra pestaña)</span></a>
+            <button class="btn btn--wa" id="sWa" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3" width="12" height="14" rx="2"/><path d="M16 21H6a2 2 0 0 1-2-2V8"/></svg>Copiar para WhatsApp</button>
+            <button class="btn btn--wine" id="sResumen" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>Copiar resumen</button>
+            <button class="btn btn--ghost" id="sShare" type="button">Compartir</button>
+            <button class="btn btn--ghost" id="sDown" type="button">Descargar mi lista</button>
+            <button class="btn btn--ghost" id="sPrint" type="button">Imprimir</button>
+          </div>
+          <p class="side__unit" id="sUnit"></p>
+        </aside>
+      </div>
+    </div>
+  </dialog>
+
+  <button class="totop" id="toTop" type="button" aria-label="Volver arriba">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 15 7-7 7 7"/></svg>
+  </button>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="data/tramites.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
